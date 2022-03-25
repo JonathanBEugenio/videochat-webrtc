@@ -12,4 +12,9 @@ app.use(express.json());
 app.use(cors());
 
 const server = http.createServer(app);
-server.listen(port, () => console.log(`Server is running on port ${port}. Press ctrl + C to exit.`))
+
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        server.listen(port, () => console.log(`Server is running on port ${port}. Press ctrl + C to exit.`));
+    })
+    .catch(err => console.error(err));
