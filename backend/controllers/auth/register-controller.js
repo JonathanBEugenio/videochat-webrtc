@@ -1,5 +1,37 @@
-const register = (req, res) => {
-    res.send('login route');
+const bcryptjs = require('bcryptjs');
+const User = require('../../models/user-model');
+
+const register = async (req, res) => {
+    try {
+        const { email, username, password } = req.body;
+
+        // check if user already exists
+        const userExists = await User.exists({ email: email.toLowerCase() });
+
+        if(userExists) {
+            // http status conflict
+            return res.status(409).send('E-mail already in use.')            
+        }
+
+        // encrypt password
+        const encryptedPassword = await bcryptjs.hash(password, 10);
+        
+        // create document and save it in database
+        const user = await User.create({
+            username,
+            password: encryptedPassword,
+            email: email.toLowerCase()
+        });
+
+        return res.status(201).json({
+            userDatails: {
+                email: user.email,
+                username: user.username
+            }
+        });
+    } catch (error) {
+        return res.status(500);
+    }
 };
 
 module.exports = register;

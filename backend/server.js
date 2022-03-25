@@ -10,8 +10,8 @@ const authRoute = require('./routes/auth-route');
 const app = express();
 const port = process.env.PORT || process.env.API_PORT;
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 app.use('/api/auth', authRoute);
 
 const server = http.createServer(app);
