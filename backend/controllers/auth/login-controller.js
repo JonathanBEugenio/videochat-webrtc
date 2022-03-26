@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const bcryptjs = require("bcryptjs");
 const User = require("../../models/user-model");
 
@@ -21,8 +22,21 @@ const login = async (req, res) => {
             return res.status(401).send('Invalid password.');
         }
 
+        // create jwt
+        const token = jwt.sign(
+            {
+                email,
+                userId: user._id
+            },
+            process.env.TOKEN_KEY,
+            {
+                expiresIn: '24h'  
+            }
+        );
+
         res.status(200).json({
             userDatails: {
+                token,
                 email: user.email,
                 username: user.username
             }
