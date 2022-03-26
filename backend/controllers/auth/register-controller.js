@@ -44,7 +44,8 @@ const register = async (req, res) => {
             }
         });
     } catch (error) {
-        return res.status(500);
+        // http status internal server error 
+        return res.status(500).send('Internal server error.');
     }
 };
 
