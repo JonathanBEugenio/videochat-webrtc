@@ -1,10 +1,13 @@
-import React from 'react'
-import AuthBox from '../../shared/components/AuthBox'
+import React from 'react';
+import AuthBox from '../../shared/components/AuthBox';
+import LoginHeader from './LoginHeader';
 
 function Login() {
   return (
-    <AuthBox>Login</AuthBox>
-  )
-}
+    <AuthBox>
+      <LoginHeader />
+    </AuthBox>
+  );
+};
 
-export default Login
+export default Login;
