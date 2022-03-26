@@ -1,11 +1,21 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-function App() {
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import Dashboard from './pages/dashboard/Dashboard';
+
+function App() {  
   return (
-    <div className="App">
-     
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
