@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import AuthBox from '../../shared/components/AuthBox';
+import CustomButton from '../../shared/components/CustomButton';
 import InputLabel from '../../shared/components/InputLabel';
 import LoginHeader from './LoginHeader';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const handleFormSubmit = () => {
+    console.log('Log in')
+  };
 
   return (
     <AuthBox>
@@ -23,6 +29,12 @@ function Login() {
         placeholder='Enter password'
         value={password}
         setValue={setPassword}
+      />
+      <CustomButton 
+        label='Log in' 
+        customStyles={{marginTop: '30px'}}
+        disabled={!isFormValid}
+        onClick={handleFormSubmit}
       />
     </AuthBox>
   );
