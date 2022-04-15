@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@mui/material'
 import { borderRadius, styled } from '@mui/system'
 
-const BoxWrapper = styled('div')({
+const Wrapper = styled('div')({
     width: '100%',
     height: '100vh',
     display: 'flex',
@@ -12,12 +12,12 @@ const BoxWrapper = styled('div')({
 });
 
 type AuthBoxProps = {
-    children: React.ReactChild
+    children: React.ReactChild | React.ReactChild[]
 }
 
 function AuthBox(props: AuthBoxProps) {
   return (
-    <BoxWrapper>
+    <Wrapper>
         <Box
             sx={{
                 width: 700,
@@ -30,7 +30,7 @@ function AuthBox(props: AuthBoxProps) {
         >
             {props.children}
         </Box>
-    </BoxWrapper>
+    </Wrapper>
   )
 }
 
