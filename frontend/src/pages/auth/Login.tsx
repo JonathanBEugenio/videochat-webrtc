@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import AuthBox from '../../shared/components/AuthBox';
-import CustomButton from '../../shared/components/CustomButton';
-import InputLabel from '../../shared/components/InputLabel';
+import {useNavigate } from 'react-router-dom'; 
+
 import LoginHeader from './LoginHeader';
+import AuthBox from '../../shared/components/AuthBox';
+import Redirect from '../../shared/components/Redirect';
+import InputLabel from '../../shared/components/InputLabel';
+import CustomButton from '../../shared/components/CustomButton';
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
@@ -12,6 +16,10 @@ function Login() {
   const handleFormSubmit = () => {
     console.log('Log in')
   };
+
+  const handleRedirectToRegisterPage = () => {
+    navigate('/register');
+  }
 
   return (
     <AuthBox>
@@ -35,6 +43,12 @@ function Login() {
         customStyles={{marginTop: '30px'}}
         disabled={!isFormValid}
         onClick={handleFormSubmit}
+      />
+      <Redirect 
+        text='Need an account?' 
+        redirectText='Create an account'
+        redirectHandler={handleRedirectToRegisterPage}
+        customStyles={{ marginTop: '5px'}}
       />
     </AuthBox>
   );
