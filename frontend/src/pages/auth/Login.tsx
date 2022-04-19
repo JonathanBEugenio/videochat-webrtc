@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useNavigate } from 'react-router-dom'; 
 
 import LoginHeader from './LoginHeader';
@@ -6,12 +6,18 @@ import AuthBox from '../../shared/components/AuthBox';
 import Redirect from '../../shared/components/Redirect';
 import InputLabel from '../../shared/components/InputLabel';
 import CustomButton from '../../shared/components/CustomButton';
+import { validateLoginForm } from '../../shared/utils/validator';
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    console.log('useEffect');
+    setIsFormValid(validateLoginForm(email, password));
+  }, [email, password]);
 
   const handleFormSubmit = () => {
     console.log('Log in')
