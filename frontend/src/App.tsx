@@ -5,8 +5,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Dashboard from './pages/dashboard/Dashboard';
+import AlertNotification from './shared/components/AlertNotification';
 
-function App() {  
+function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -15,6 +16,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
       </Routes>
+      <AlertNotification />
     </BrowserRouter>
   );
 }
