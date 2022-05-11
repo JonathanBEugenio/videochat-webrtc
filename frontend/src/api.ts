@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:5002/api',
@@ -14,7 +14,7 @@ interface registerData extends loginData {
   username: string;
 }
 
-export const login = async (data: loginData) => {
+export const login = async (data: loginData): Promise<AxiosResponse | any> => {
   try {
     return await apiClient.post('/auth/login', data);
   } catch (exception) {
@@ -25,7 +25,7 @@ export const login = async (data: loginData) => {
   }
 }
 
-export const register = async (data: registerData) => {
+export const register = async (data: registerData): Promise<AxiosResponse | any>=> {
   try {
     return await apiClient.post('/auth/register', data);
   } catch (exception) {

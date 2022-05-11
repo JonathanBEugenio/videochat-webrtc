@@ -1,14 +1,20 @@
+import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers } from "redux";
 import thunk from 'redux-thunk';
 import authReducer from './reducers/authReducer';
-import { composeWithDevTools } from "redux-devtools-extension";
-import { combineReducers, createStore, applyMiddleware } from "redux";
 
 const rootReducer = combineReducers({
-    auth: authReducer
+  auth: authReducer
 });
-const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(thunk))
-);
+
+const store = configureStore({
+  reducer: {
+    rootReducer
+  },
+  devTools: true,
+  middleware: [thunk]
+});
 
 export default store;
+export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>

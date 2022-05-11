@@ -6,8 +6,14 @@ import Redirect from '../../shared/components/Redirect';
 import { useNavigate } from 'react-router-dom';
 import { validateRegisterForm } from '../../shared/utils/validator';
 import CustomButton from '../../shared/components/CustomButton';
+import { connect } from 'react-redux';
+import { getActions } from '../../store/actions/authAction';
 
-function Register() {
+type RegisterProps = {
+  register: Function
+}
+
+function Register({ register }: RegisterProps) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -20,7 +26,8 @@ function Register() {
   }, [email, password]);
 
   const handleFormSubmit = () => {
-    console.log('Register')
+    const userDetails = { email, username, password };
+    register(userDetails, navigate);
   };
 
   const handleRedirectToLoginPage = () => {
@@ -29,25 +36,25 @@ function Register() {
 
   return (
     <AuthBox>
-      <Typography variant='h5' sx={{ color: 'white'}}>
+      <Typography variant='h5' sx={{ color: 'white' }}>
         Create an account
       </Typography>
 
-      <InputLabel 
+      <InputLabel
         type='email'
         label='E-mail'
         placeholder='Enter e-mail address'
         value={email}
         setValue={setEmail}
       />
-      <InputLabel 
+      <InputLabel
         type='text'
         label='Username'
         placeholder='Enter a username'
         value={username}
         setValue={setUsername}
       />
-      <InputLabel 
+      <InputLabel
         type='password'
         label='Password'
         placeholder='Enter password'
@@ -55,21 +62,27 @@ function Register() {
         setValue={setPassword}
       />
 
-      <CustomButton 
-        label='Register' 
-        customStyles={{marginTop: '30px'}}
+      <CustomButton
+        label='Register'
+        customStyles={{ marginTop: '30px' }}
         disabled={!isFormValid}
         onClick={handleFormSubmit}
       />
 
-      <Redirect 
-        text='Already have an account?' 
+      <Redirect
+        text='Already have an account?'
         redirectText='Login'
         redirectHandler={handleRedirectToLoginPage}
-        customStyles={{ marginTop: '5px'}}
+        customStyles={{ marginTop: '5px' }}
       />
     </AuthBox>
   )
 }
 
-export default Register
+const mapActionsToProps = () => {
+  return {
+    ...getActions()
+  }
+}
+
+export default connect(null, mapActionsToProps)(Register);
